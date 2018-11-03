@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">tamam</string>
+    <string name="title">title</string>
+    <string name="login_forget_password">şifremi unuttum</string>
+    <string name="login_sign_text">giriş</string>
+    <string name="login_sign_up_message">üye değilsen</string>
+    <string name="login_sign_up_text">hemen üye ol</string>
+</resources>

@@ -1,0 +1,231 @@
+// @see https://hackernoon.com/android-how-to-add-gradle-dependencies-using-foreach-c4cbcc070458
+
+ext.app = [
+        minSdk    : 19,
+        targetSdk : 27,
+        compileSdk: 27,
+        buildTools: '28.0.2',
+]
+
+ext.repository = [
+        fabric : 'https://maven.fabric.io/public',
+        jitpack: 'https://jitpack.io',
+]
+
+ext.addRepos = { RepositoryHandler handler ->
+    handler.google()
+    handler.jcenter()
+    handler.maven { url repository.fabric }
+    handler.maven { url repository.jitpack }
+}
+
+ext.java = [
+        sourceCompatibility: JavaVersion.VERSION_1_8,
+        targetCompatibility: JavaVersion.VERSION_1_8,
+]
+
+ext.keys = [
+        fabric: 'ADD_FABRIC_KEY'
+]
+
+ext.endpoints = [
+        dev : '"http://google.com"',
+        prod: '"http://google.com/"'
+]
+
+
+def versions = [
+        gradlePlugin          : '3.2.1',
+
+        crashlyticsGradle     : '1+',
+        crashlytics           : '2.9.5',
+
+        multidex              : '1.0.3',
+
+        kotlin                : '1.3.0',
+
+        supportLibrary        : '27.1.1',
+        constraintLayout      : '1.1.2',
+
+        archComp              : '1.1.1',
+        navigation            : '1.0.0-alpha04',
+
+        rxJava                : '2.0.2',
+        rxKotlin              : '2.1.0',
+        rxAndroid             : '2.0.2',
+
+        dagger                : '2.16',
+
+        retrofit              : '2.3.0',
+        okHttp                : '3.8.1',
+        gson                  : '2.8.1',
+
+        realm                 : '5.4.0',
+
+        javaxInject           : '1',
+        javaxAnnotation       : '1.0',
+        androidAnnotations    : '21.0.3',
+
+        fragmentArgs          : '4.0.0-RC1',
+
+        // Test
+        robolectric           : '3.4.2',
+        junit                 : '4.12',
+        assertJ               : '3.8.0',
+        mockitoKotlin         : '1.5.0',
+]
+
+def libraries = [
+        // Android Gradle Plugin
+        androidGradlePlugin    : "com.android.tools.build:gradle:$versions.gradlePlugin",
+
+        // FabricCrashlytics
+        crashlyticsGradlePlugin: "io.fabric.tools:gradle:$versions.crashlyticsGradle",
+        crashlytics            : "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}@aar",
+
+        // Multidex Support
+        multidex               : "com.android.support:multidex:$versions.multidex",
+
+        // Kotlin
+        kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+        kotlinGradlePlugin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
+        kotlinReflect          : "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
+
+        // Support Libraries
+        appCompatV7            : "com.android.support:appcompat-v7:$versions.supportLibrary",
+        supportDesign          : "com.android.support:design:$versions.supportLibrary",
+        cardView               : "com.android.support:cardview-v7:$versions.supportLibrary",
+        constraintLayout       : "com.android.support.constraint:constraint-layout:$versions.constraintLayout",
+
+        // Arch Libraries
+        archExtensions         : "android.arch.lifecycle:extensions:$versions.archComp",
+        archCompiler           : "android.arch.lifecycle:compiler:$versions.archComp",
+        navigationFragment     : "android.arch.navigation:navigation-fragment-ktx:$versions.navigation",
+        navigationUi           : "android.arch.navigation:navigation-ui-ktx:$versions.navigation",
+
+        // Reactive
+        rxJava                 : "io.reactivex.rxjava2:rxandroid:$versions.rxJava",
+        rxKotlin               : "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin",
+        rxAndroid              : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+
+        // Dagger
+        dagger                 : "com.google.dagger:dagger:$versions.dagger",
+        daggerSupport          : "com.google.dagger:dagger-android-support:$versions.dagger",
+        daggerCompiler         : "com.google.dagger:dagger-compiler:$versions.dagger",
+        daggerProcessor        : "com.google.dagger:dagger-android-processor:$versions.dagger",
+
+        // Network Libraries
+        retrofit               : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        retrofitConverter      : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+        retrofitAdapter        : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+        okHttp                 : "com.squareup.okhttp3:okhttp:$versions.okHttp",
+        okHttpLogger           : "com.squareup.okhttp3:logging-interceptor:$versions.okHttp",
+        gson                   : "com.google.code.gson:gson:$versions.gson",
+
+        // Realm
+        realmGradlePlugin      : "io.realm:realm-gradle-plugin:$versions.realm",
+
+        javaxInject            : "javax.inject:javax.inject:$versions.javaxInject",
+        javaxAnnotation        : "javax.annotation:jsr250-api:$versions.javaxAnnotation",
+        androidAnnotations     : "com.android.support:support-annotations:$versions.androidAnnotations",
+
+        // FragmentArgs
+        fragmentArgs           : "com.hannesdorfmann.fragmentargs:annotation:$versions.fragmentArgs",
+        fragmentArgsProcessor  : "com.hannesdorfmann.fragmentargs:processor:$versions.fragmentArgs",
+
+        //Test
+        assertj                : "org.assertj:assertj-core:$versions.assertJ",
+        junit                  : "junit:junit:$versions.junit",
+        junitKotlin            : "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin",
+        mockito                : "com.nhaarman:mockito-kotlin:$versions.mockitoKotlin",
+        robolectric            : "org.robolectric:robolectric:$versions.robolectric",
+        archTesting            : "android.arch.core:core-testing:$versions.archComp",
+]
+
+static def addDependency(config, dependency) {
+    [configuration: config, dependency: dependency]
+}
+
+static def addDependency(config, dependency, options) {
+    [configuration: config, dependency: dependency, options: options]
+}
+
+ext.addDependencies = { DependencyHandler handler, dependencies ->
+    dependencies.each {
+        if (it.options != null) {
+            handler.add(it.configuration, it.dependency, it.options)
+        } else {
+            handler.add(it.configuration, it.dependency)
+        }
+
+    }
+}
+
+ext.gradlePlugins = [
+        android       : libraries.androidGradlePlugin,
+        kotlin        : libraries.kotlinGradlePlugin,
+        realm         : libraries.realmGradlePlugin,
+        crashlytics   : libraries.crashlyticsGradlePlugin,
+]
+
+ext.appDependencies = [
+        addDependency('implementation', libraries.multidex),
+
+        addDependency('implementation', libraries.kotlin),
+
+        addDependency('implementation', libraries.appCompatV7),
+        addDependency('implementation', libraries.cardView),
+        addDependency('implementation', libraries.constraintLayout),
+
+        addDependency('implementation', libraries.navigationFragment),
+        addDependency('implementation', libraries.navigationUi),
+
+        addDependency('implementation', libraries.crashlytics, { transitive = true }),
+
+        addDependency('implementation', libraries.rxKotlin),
+        addDependency('implementation', libraries.rxAndroid),
+
+        addDependency('implementation', libraries.dagger),
+        addDependency('implementation', libraries.daggerSupport),
+        addDependency('kapt', libraries.daggerCompiler),
+        addDependency('kapt', libraries.daggerProcessor),
+
+        addDependency('implementation', libraries.fragmentArgs),
+        addDependency('kapt', libraries.fragmentArgsProcessor),
+
+        addDependency('implementation', libraries.archExtensions),
+        addDependency('kapt', libraries.archCompiler),
+
+        addDependency('testImplementation', libraries.junit),
+]
+
+ext.domainDependencies = [
+        addDependency('implementation', libraries.kotlin),
+
+        addDependency('implementation', libraries.rxJava),
+
+        addDependency('implementation', libraries.javaxInject),
+
+        addDependency('testImplementation', libraries.junit),
+        addDependency('testImplementation', libraries.mockito),
+]
+
+ext.dataDependencies = [
+        addDependency('implementation', libraries.kotlin),
+
+        addDependency('implementation', libraries.rxKotlin),
+
+        addDependency('implementation', libraries.retrofit),
+        addDependency('implementation', libraries.retrofitAdapter),
+        addDependency('implementation', libraries.retrofitConverter),
+        addDependency('implementation', libraries.okHttp),
+        addDependency('implementation', libraries.okHttpLogger),
+        addDependency('implementation', libraries.gson),
+
+        addDependency('implementation', libraries.javaxInject),
+
+        addDependency('testImplementation', libraries.assertj),
+        addDependency('testImplementation', libraries.junit),
+        addDependency('testImplementation', libraries.junitKotlin),
+        addDependency('testImplementation', libraries.mockito),
+]

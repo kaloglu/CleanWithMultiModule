@@ -1,0 +1,44 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: 'dependencies.gradle'
+
+    addRepos(repositories)
+
+    dependencies {
+        classpath gradlePlugins.android
+        classpath gradlePlugins.kotlin
+        classpath gradlePlugins.realm
+        classpath gradlePlugins.crashlytics
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group.startsWith('android.arch') && !details.requested.name.startsWith('navigation')) {
+                print(details.requested.group)
+                details.useVersion '1.1.1'
+            }
+
+            if (details.requested.group.equals('com.android.support') && !details.requested.name.startsWith('multidex')) {
+                print(details.requested.group)
+                details.useVersion '27.1.1'
+            }
+        }
+    }
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "500"
+    }
+}

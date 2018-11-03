@@ -1,0 +1,9 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+sourceCompatibility = java.sourceCompatibility
+targetCompatibility = java.targetCompatibility
+
+dependencies {
+    addDependencies(dependencies, domainDependencies)
+}

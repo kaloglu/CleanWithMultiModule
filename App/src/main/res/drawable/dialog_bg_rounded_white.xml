@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/white" android:state_enabled="true">
+        <shape>
+            <solid android:color="@color/white_four" />
+            <corners android:radius="@dimen/dialog_round_corner_radius" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion app.compileSdk
+    buildToolsVersion app.buildTools
+
+    defaultConfig {
+        applicationId "com.kaloglu.boiler_plate"
+
+        minSdkVersion app.minSdk
+        targetSdkVersion app.targetSdk
+
+        versionCode 1
+        versionName "1.0.8"
+
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            ext.enableCrashlytics = false
+        }
+    }
+    flavorDimensions 'default'
+    productFlavors {
+        dev {
+            dimension 'default'
+            manifestPlaceholders = [fabric_api_key: keys.fabric]
+            buildConfigField 'String', 'END_POINT', endpoints.dev
+        }
+
+        prod {
+            dimension 'default'
+            manifestPlaceholders = [fabric_api_key: keys.fabric]
+            buildConfigField 'String', 'END_POINT', endpoints.prod
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility java.sourceCompatibility
+        targetCompatibility java.targetCompatibility
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = getSourceDirectories()
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions{
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':Domain')
+    implementation project(':Data')
+
+    addDependencies(dependencies, appDependencies)
+}
+
+static def getSourceDirectories() {
+    def directories = new ArrayList<>()
+
+    directories.add('src/main/res')
+    directories.add('src/main/res/layouts')
+
+    def layoutsDir = new File('App/src/main/res/layouts')
+
+    layoutsDir.eachDir { dir ->
+        directories.add(dir.canonicalPath)
+    }
+
+    return directories
+}

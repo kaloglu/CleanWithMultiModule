@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dialog_layout_dismiss_width">50dp</dimen>
+    <dimen name="dialog_layout_dismiss_height">50dp</dimen>
+    <dimen name="dialog_layout_container_margin_top">10dp</dimen>
+    <dimen name="dialog_round_corner_radius">6dp</dimen>
+    <dimen name="dialog_layout_container_padding_horizontal">8dp</dimen>
+    <dimen name="dialog_layout_container_padding_top">14dp</dimen>
+    <dimen name="dialog_layout_container_padding_bottom">16dp</dimen>
+    <dimen name="dialog_layout_header_height">8dp</dimen>
+    <dimen name="dialog_layout_content_padding_top">14dp</dimen>
+    <dimen name="dialog_layout_content_padding_bottom">16dp</dimen>
+    <dimen name="dialog_layout_button_margin_bottom">20dp</dimen>
+</resources>

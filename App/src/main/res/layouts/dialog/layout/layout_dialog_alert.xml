@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewDismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minWidth="@dimen/dialog_layout_dismiss_width"
+        android:minHeight="@dimen/dialog_layout_dismiss_height"
+        android:tint="@color/white_four"
+        tools:background="@color/greyish"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+        <!--android:src="@drawable/ic_close"-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dialog_layout_container_margin_top"
+        android:background="@drawable/dialog_bg_rounded_white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dialog_layout_container_padding_horizontal"
+        android:paddingTop="@dimen/dialog_layout_container_padding_top"
+        android:paddingRight="@dimen/dialog_layout_container_padding_horizontal"
+        android:paddingBottom="@dimen/dialog_layout_container_padding_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewDismiss">
+
+        <ImageView
+            android:id="@+id/imageViewTitleIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:minHeight="@dimen/dialog_layout_header_height"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:tint="@color/jungle_green"
+            tools:visibility="visible" />
+            <!--tools:src="@drawable/ic_title"-->
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/dialog_layout_header_height"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewTitleIcon"
+            tools:text="Alert Title"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/dialog_layout_content_padding_top"
+            android:paddingBottom="@dimen/dialog_layout_content_padding_bottom"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            tools:text="Alert Message" />
+
+        <Button
+            android:id="@+id/buttonPositive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMessage"
+            tools:text="Positive" />
+
+        <Button
+            android:id="@+id/buttonNeutral"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_layout_button_margin_bottom"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonPositive"
+            tools:text="Neutral" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
